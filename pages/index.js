@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import LoginBtn from "../components/login-btn";
 
 
 export default function home(pageProps) {
@@ -25,12 +24,9 @@ export default function home(pageProps) {
         }
     }
     
-    let router = useRouter();
     const greet = '반가워요!\n우주인이 되어보세요 🚀'; 
-    console.log(pageProps)
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <LoginBtn></LoginBtn>
             <style global jsx>
                 {`
                     div#__next > div {

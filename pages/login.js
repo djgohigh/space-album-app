@@ -1,7 +1,6 @@
 export default function login(pageProps) {
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <LoginBtn/>
             <style global jsx>
                 {`
                     div#__next > div {
