@@ -7,8 +7,6 @@ RUN npm i
 
 COPY . /usr/src/space-album-app
 
-RUN --mount=type=secret,id=env,dst=.env
-
 RUN npx prisma generate
 RUN npm run build
 

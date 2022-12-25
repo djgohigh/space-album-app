@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 export default function home(pageProps) {
 
-    let route = new useRouter();
+    let router = new useRouter();
 
     async function createUser(e) {
         let userData = await fetch('api/createUser', {
@@ -15,16 +15,16 @@ export default function home(pageProps) {
         return userData.json();
     }
     
-    const getUser = async () => {
-        const result = await createUser();
-        console.log(result);
-        if (result.message === 'success') {
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        if ((await createUser()).message === 'success') {
             alert('계정 생성에 성공했습니다. 로그인화면으로 이동합니다.');
-            route.push('/login');
+            router.push('/loginPage');
         }
     }
     
-    const greet = '반가워요!\n우주인이 되어보세요 🚀'; 
+    const greet = '반가워요!\n우주인이 되어보세요 🚀';
+    
     return (
         <div className="w-full h-full flex justify-center items-center">
             <style global jsx>
@@ -36,11 +36,11 @@ export default function home(pageProps) {
             </style>
             <div className="w-3/12">
                 <h1 className="mb-5 text-3xl text-center font-extrabold bg-gradient-to-r text-transparent bg-clip-text to-emerald-600 from-sky-400 whitespace-pre-line">{greet}</h1>
-                <form id="userForm" method="POST" action="api/createUser">
+                <form id="userForm" onSubmit={submitHandler}>
                     <div className="grid gap-3 mb-6">
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">이메일</label>
-                            <input type="text" name="usr_mail" id="usr_mail" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="아이디" required></input>
+                            <input type="email" name="usr_mail" id="usr_mail" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="아이디" required></input>
                         </div>
                         <div>
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">비밀번호</label>
@@ -56,10 +56,10 @@ export default function home(pageProps) {
                         </div>  
                     </div>
                     <div className="text-center">
-                        <button type="button" onClick={getUser} className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">등록하기</button>
+                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">등록하기</button>
                     </div>
                     <div className="text-center">
-                        <button type="button" onClick={() => router.push('/login')} className="w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">계정이 있어요</button>
+                        <button type="button" onClick={() => router.push('/loginPage')} className="w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">계정이 있어요</button>
                     </div>
                 </form>
             </div>
