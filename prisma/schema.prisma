@@ -12,12 +12,15 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  usr_mail String @unique
-  usr_pwd String
-  salt String?
-  usr_nam String?
-  createdAt DateTime @default(now())
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String
+  salt          String
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
 model VerificationToken {
@@ -42,7 +45,7 @@ model Account {
   id_token           String?  @db.Text
   session_state      String?
 
-  user User @relation(fields: [id], references: [usr_mail], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -52,5 +55,5 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [id], references: [usr_mail], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

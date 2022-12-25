@@ -23,7 +23,7 @@ export default async (req, res) => {
 
     const user = await prisma.User.findUnique({
         where: {
-            usr_mail: req.body.usr_mail,
+            email: req.body.usr_mail,
         },
     });
         
@@ -33,9 +33,9 @@ export default async (req, res) => {
         const cryptoWords = createEnPassWord(req.body.usr_pwd);
         const createUser = await prisma.User.create({
             data : {
-                usr_mail : req.body.usr_mail,
-                usr_nam : req.body.usr_nam,
-                usr_pwd : (await cryptoWords).hashedPassword,
+                email : req.body.usr_mail,
+                name : req.body.usr_nam,
+                password : (await cryptoWords).hashedPassword,
                 salt : (await cryptoWords).salt,
             }
         });
