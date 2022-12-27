@@ -16,7 +16,7 @@ export const authOptions = {
                     label: "Email",
                     type: "email",
                     placeholder: "test@test.com",
-                },
+                },  
                 password: {label: "Password", type: "password"},
             },
             async authorize(credentials, req) {
@@ -25,7 +25,7 @@ export const authOptions = {
                         email: credentials.usr_mail,
                     },
                 });
-
+                
                 console.log("credential", credentials);
                 console.log("user", user);
 

@@ -20,6 +20,8 @@ export default function home(pageProps) {
         if ((await createUser()).message === 'success') {
             alert('계정 생성에 성공했습니다. 로그인화면으로 이동합니다.');
             router.push('/auth/credentials-signin');
+        } else {
+            alert('등록된 이메일입니다.');
         }
     }
     
